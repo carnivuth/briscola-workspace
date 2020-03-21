@@ -1,6 +1,17 @@
 package deck;
-
+/**
+ * 
+ * 
+ * @author Longhi Matteo
+ * @author Mirko Legnini
+ * enumeration for the card representation
+ */
 public enum Card {
+	/**
+	 * 
+	 * creation of the <code>Card</code> values
+	 *
+	 */
 	ASSO_SPADI("ASSO","SPADI",10,11), 										 
 	DUE_SPADI("DUE","SPADI",1,0),
 	TRE_SPADI("TRE","SPADI",9,10),
@@ -44,38 +55,110 @@ public enum Card {
 	FANTE_COPPE("FANTE","COPPE",6,2), 
 	CAVALLO_COPPE("CAVALLO","COPPE",7,3),
 	RE_COPPE("RE","COPPE",8,4);
-	
+	/**
+	 * 
+	 * attribute for the card figure representation 
+	 * 
+	 */
 	private String figure;
+	/**
+	 * 
+	 * attribute for the card seed representation 
+	 * 
+	 */
 	private String seed;
+	/**
+	 * 
+	 * attribute for the card value representation in the briscola card's hierarchy 
+	 * 
+	 */
 	private int value;
+	/**
+	 * 
+	 * attribute for the card point representation in the briscola card's hierarchy 
+	 * 
+	 */
 	private int points;
+	/*
+	 * 
+	 * main constructor for the card enumeration
+	 * @param figure 
+	 * the figure of the card
+	 * @param seed 
+	 * the seed of the card
+	 * @param value
+	 * the card value in the briscola card's hierarchy
+	 * @param points
+	 * the card point in the briscola card's hierarchy
+	 * 
+	 */
 	private Card(String figure,String seed,int value,int points) {
 		this.figure=figure;
 		this.seed=seed;
 		this.value=value;
 		this.points=points;
 	}
+	/**
+	 * getter for points attribute
+	 * @return the points of the card
+	 */
 	public int getPoints() {
 		return points;
 	}
+	/**
+	 * getter for value attribute
+	 * @return the value of the card
+	 */
 	public int getValue() {
 		return value;
 	}
+	/**
+	 * getter for seed attribute
+	 * @return the seed of the card
+	 */
 	public String getSeed() {
 		return seed;
 	}
+	/**
+	 * getter for figure attribute
+	 * @return the figure of the card
+	 */
 	public String getFigure() {
 		return figure;
 	}
-	
+	/**
+	 * 
+	 * 
+	 * @param that  the card to compare to
+	 * @return the difference between the card value
+	 */
 	public int compareValue(Card that) {
 		return this.value-that.value;
 	}
-	
+	/**
+	 * 
+	 * swap method
+	 * @param a the first card to swap
+	 * @param b the second card to swap
+	 */
+	public  static void swap(Card a,Card b) {
+		Card c;
+		c=a;
+		a=b;
+		b=c;
+	}
+	/**
+	 * 
+	 * method for the comparison of two card in one hand
+	 * 
+	 * @param card the card of the second player
+	 * @param BriscolaSeed the briscola seed
+	 * @return the winner card of the hand, true for the first card, false otherwise
+	 */
 	public boolean takes(Card card,String BriscolaSeed) {
 		if(card.getSeed().contentEquals(BriscolaSeed) && !this.getSeed().contentEquals(BriscolaSeed))
 			return false;
-		else if(this.getSeed().contentEquals(card.getSeed()) && this.compareValue(card)<0)
+		if(this.getSeed().contentEquals(card.getSeed()) && this.compareValue(card)<0)
 			return false;
 		return true;
 	}
