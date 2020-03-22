@@ -3,7 +3,7 @@ import java.util.Random;
 /**
  * @author Legnini Mirko 
  * @author Longhi Matteo
- * class for the deck representation 
+ * 
  */
 public class Deck {
 	/**
