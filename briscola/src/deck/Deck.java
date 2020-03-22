@@ -37,9 +37,9 @@ public class Deck {
 		this.cards=Card.values();
 		this.lastCard=BRISCOLA_NUMBER_CARDS-1;
 	}
-	/*
+	/**
 	 * 
-	 * method for the shuffling of the deck that use the <i>Durstenfeld-Knuth<i> algorithm
+	 * method for the shuffling of the deck that use the <i>Durstenfeld-Knuth</i> algorithm
 	 * 
 	 */
 	public void shuffle() {
@@ -102,13 +102,15 @@ public class Deck {
 	 * 
 	 */
 	public void removeDue() {
-		int posDue=-1;
-		int i=0;
-		while(posDue<0) {
-			if(cards[i].compareTo(Card.DUE_COPPE)==0 && cards[i].getSeed().contentEquals("COPPE")) posDue=i;
+		int posDue;
+		for(int i=0; i<this.getCardNumber(); i++) {
+			if(cards[i].compareTo(Card.DUE_COPPE)==0) {
+				posDue=i;
+				Card.swap(this.cards[this.lastCard], this.cards[posDue]);
+				this.removeLastCard();
+				return;
+			}
 			i++;
 		}
-		Card.swap(this.cards[this.lastCard], this.cards[posDue]);
-		this.removeLastCard();
 	}
 }
