@@ -104,13 +104,13 @@ public class Deck {
 	public void removeDue() {
 		int posDue;
 		for(int i=0; i<this.getCardNumber(); i++) {
-			if(cards[i].compareTo(Card.DUE_COPPE)==0) {
+			if(cards[i].equals(Card.DUE_COPPE)) {
 				posDue=i;
 				Card.swap(this.cards[this.lastCard], this.cards[posDue]);
 				this.removeLastCard();
 				return;
 			}
-			i++;
+			
 		}
 	}
 }

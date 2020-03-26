@@ -162,5 +162,17 @@ public enum Card {
 			return false;
 		return true;
 	}
+	/**
+	 * equals method for the <code>card</code> comparison 
+	 * @param card the target <code>card</code> for the comparison
+	 * @return the result of the comparison true if the two cards are equals false instead
+	 */
+	public boolean equals(Card card) {
+		if(!(this.getFigure().equals(card.getFigure())))return false;
+		
+		if(this.getPoints()!=card.getPoints())return false;
+		if(this.getValue()!=card.getValue())return false;
+		return this.getSeed().equals(card.getSeed());
+	}
 	
 }
