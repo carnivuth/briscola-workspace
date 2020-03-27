@@ -33,6 +33,10 @@ public class HandTest {
 		hand.add(Card.ASSO_DENARI);
 		Hand copy=new Hand(hand);
 		assertEquals(3, hand.getNumberCards());
+		for(int i=0;i<copy.getNumberCards();i++) {
+			assertTrue(copy.getCard(i).equals(hand.getCard(i)));
+		}
+		
 		}
 	
 	
