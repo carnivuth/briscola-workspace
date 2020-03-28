@@ -1,6 +1,7 @@
 package player;
 
 import deck.Card;
+import exceptions.MaxCardNubmerExceededException;
 
 public abstract class Player {
 	/**
@@ -18,9 +19,10 @@ public abstract class Player {
 	/**
 	 * method for the draw of a card
 	 * @param card the card drawn
+	 * @throws MaxCardNubmerExceededException 
 	 */
-	public void draw(Card card) {
-		
+	public void draw(Card card) throws MaxCardNubmerExceededException {
+		this.hand.add(card);
 	}
 	/**
 	 * get method for the hand attribute

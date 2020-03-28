@@ -26,6 +26,7 @@ public class PlayerBriscola extends Player {
 	public PlayerBriscola(int dimension,int team) {
 		super(dimension);
 		this.setTeam(team);
+		cardsWon=new ArrayList<Card>();
 		// TODO Auto-generated constructor stub
 	}
 	
