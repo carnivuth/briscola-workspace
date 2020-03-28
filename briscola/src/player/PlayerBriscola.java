@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 
 import deck.Card;
+import exceptions.CardNotFoundException;
 /**
  * 
  * @author Longhi Matteo
@@ -38,7 +39,7 @@ public class PlayerBriscola extends Player {
 	 * @throws  ArrayIndexOutOfBoundsException if the index parameter is illegal
 	 * @return the card played 
 	 */
-	public Card play(int card) throws ArrayIndexOutOfBoundsException {
+	public Card play(int card) throws ArrayIndexOutOfBoundsException,CardNotFoundException {
 		return this.hand.getCard(card);
 	}
 	/**

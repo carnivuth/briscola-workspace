@@ -1,5 +1,6 @@
 package player;
-import exceptions.MaxCardNubmerExceededException;
+import exceptions.CardNotFoundException;
+import exceptions.MaxCardNumberExceededException;
 
 import java.util.Arrays;
 
@@ -48,11 +49,11 @@ public class Hand {
 	 * 
 	 * method for the insert of a card in the array
 	 * @param card the card that have to be inserted in the array
-	 * @throws MaxCardNubmerExceededException if the hand is full
+	 * @throws MaxCardNumberExceededException if the hand is full
 	 */
-	public void add(Card card) throws MaxCardNubmerExceededException {
+	public void add(Card card) throws MaxCardNumberExceededException {
 		if(this.getNumberCards()>=cardsInHand.length)
-			throw new MaxCardNubmerExceededException("hand array out of bounds too much cards in the hand");
+			throw new MaxCardNumberExceededException("hand array out of bounds too much cards in the hand");
 		this.cardsInHand[this.getNumberCards()]=card;
 		this.increaseNumberCards();
 	}
@@ -65,14 +66,25 @@ public class Hand {
 		this.numberCards++;	
 	}
 	/**
+	 * method for the decrease of the <code>numberCards</code> value
+	 * 
+	 * 
+	 */
+	private void decreseNumberCards() {
+		this.numberCards++;	
+	}
+	/**
 	 * remove a card from the array of the specified index
 	 * @param index the index of the card that have to be removed
 	 * @return the card removed
 	 * @throws ArrayIndexOutOfBoundsException if the index is illegal for the array's dimension
+	 * @throws CardNotFoundException if the element at the specified index is null
 	 */
-	public  Card getCard (int index)throws ArrayIndexOutOfBoundsException {
+	public  Card getCard (int index)throws ArrayIndexOutOfBoundsException,CardNotFoundException {
 		if(index>=this.getNumberCards()||index<0)
 			throw new ArrayIndexOutOfBoundsException("illegal index for the method getCard");
+		if(cardsInHand[index]==null)
+			throw new CardNotFoundException("illegal index for the method getCard");
 		Card result=cardsInHand[index];
 		this.removeCard(index);
 		return result;
@@ -84,8 +96,9 @@ public class Hand {
 	 */
 	private  void removeCard (int index)throws ArrayIndexOutOfBoundsException {
 		if(index>=this.getNumberCards()||index<0)
-			throw new ArrayIndexOutOfBoundsException("illegal index for the method getCard");
+			throw new ArrayIndexOutOfBoundsException("illegal index for the method removeCard");
 		 cardsInHand[index]=null;
+		 this.decreseNumberCards();
 		 this.compact();
 	}
 	/**

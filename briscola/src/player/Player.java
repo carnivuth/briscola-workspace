@@ -1,7 +1,8 @@
 package player;
 
 import deck.Card;
-import exceptions.MaxCardNubmerExceededException;
+import exceptions.CardNotFoundException;
+import exceptions.MaxCardNumberExceededException;
 
 public abstract class Player {
 	/**
@@ -19,9 +20,9 @@ public abstract class Player {
 	/**
 	 * method for the draw of a card
 	 * @param card the card drawn
-	 * @throws MaxCardNubmerExceededException 
+	 * @throws MaxCardNumberExceededException if the array is full
 	 */
-	public void draw(Card card) throws MaxCardNubmerExceededException {
+	public void draw(Card card) throws MaxCardNumberExceededException {
 		this.hand.add(card);
 	}
 	/**
@@ -35,7 +36,9 @@ public abstract class Player {
 	 * Abstract method play
 	 * @param card the index of the card
 	 * @return the card player
+	 * @throws ArrayIndexOutOfBoundsException if the index is illegal
+	 * @throws CardNotFoundException if there is no card in the specified index
 	 */
-	public abstract Card play(int card);
+	public abstract Card play(int card) throws ArrayIndexOutOfBoundsException,CardNotFoundException;
 
 }
