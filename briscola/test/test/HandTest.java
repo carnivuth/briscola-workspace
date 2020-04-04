@@ -38,7 +38,6 @@ public class HandTest {
             });
         } catch (MaxCardNubmerExceededException ignored) {
         }
-        ;
     }
 
     @Test
@@ -50,7 +49,6 @@ public class HandTest {
             hand.add(Card.ASSO_DENARI);
         } catch (MaxCardNubmerExceededException exception) {
         }
-        ;
         Hand copy = new Hand(hand);
         assertEquals(3, hand.getNumberCards());
         for (int i = 0; i < copy.getNumberCards(); i++) {
@@ -67,7 +65,6 @@ public class HandTest {
             hand.add(Card.ASSO_DENARI);
         } catch (MaxCardNubmerExceededException ignored) {
         }
-        ;
 
         try {
             Card prova = hand.getCard(1);
@@ -81,7 +78,6 @@ public class HandTest {
             });
         } catch (ArrayIndexOutOfBoundsException ignored) {
         }
-        ;
     }
 
 
