@@ -2,11 +2,12 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.testng.annotations.AfterTest;
+
 import org.junit.jupiter.api.*;
 
 import exceptions.MaxCardNubmerExceededException;
 import deck.Card;
+import org.junit.jupiter.api.function.Executable;
 import player.Hand;
 
 public class HandTest {
@@ -14,27 +15,30 @@ public class HandTest {
 
     @BeforeEach
     public void init() {
-        hand = new Hand(3);
+        hand = new Hand();
     }
 
     @Test
     public void handTest() {
-        hand = new Hand(3);
+        hand = new Hand();
         assertEquals(0, hand.getNumberCards());
     }
 
     @Test
     public void drawTest() {
         try {
-            hand = new Hand(3);
+            hand = new Hand();
             hand.add(Card.ASSO_BASTONI);
             assertEquals(1, hand.getNumberCards());
             hand.add(Card.ASSO_COPPE);
             assertEquals(2, hand.getNumberCards());
             hand.add(Card.ASSO_DENARI);
             assertEquals(3, hand.getNumberCards());
-            assertThrows(MaxCardNubmerExceededException.class, () -> {
-                hand.add(Card.ASSO_SPADI);
+            assertThrows(MaxCardNubmerExceededException.class, new Executable() {
+                @Override
+                public void execute() throws Throwable {
+                    hand.add(Card.ASSO_SPADI);
+                }
             });
         } catch (MaxCardNubmerExceededException ignored) {
         }
@@ -43,7 +47,7 @@ public class HandTest {
     @Test
     public void copyConstructorTest() {
         try {
-            hand = new Hand(3);
+            hand = new Hand();
             hand.add(Card.ASSO_BASTONI);
             hand.add(Card.ASSO_COPPE);
             hand.add(Card.ASSO_DENARI);
@@ -59,7 +63,7 @@ public class HandTest {
 
     public void getCardTest() {
         try {
-            hand = new Hand(3);
+            hand = new Hand();
             hand.add(Card.ASSO_BASTONI);
             hand.add(Card.ASSO_COPPE);
             hand.add(Card.ASSO_DENARI);

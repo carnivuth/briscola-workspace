@@ -1,5 +1,7 @@
 package deck;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -7,18 +9,11 @@ import java.util.Random;
  * @author Longhi Matteo
  */
 public class Deck {
+
     /**
-     * constant attribute for the physical dimension of the card array
+     * the card's arrayList
      */
-    private static final int BRISCOLA_NUMBER_CARDS = 40;
-    /**
-     * the card's array
-     */
-    private Card[] cards;
-    /**
-     * index attribute for the last card in the array
-     */
-    private int lastCard;
+    private ArrayList<Card> cards;
 
     /**
      * main constructor for the <code>deck</code> object
@@ -26,48 +21,33 @@ public class Deck {
      * <code>BRISCOLA_NUMBER_CARDS</code> constant and  load the <code>card</code> values in to the array
      */
     public Deck() {
-        this.cards = new Card[BRISCOLA_NUMBER_CARDS];
-        this.cards = Card.values();
-        this.lastCard = BRISCOLA_NUMBER_CARDS - 1;
+
+        this.cards = new ArrayList<Card>();
+        this.cards.addAll(Arrays.asList(Card.values()));
     }
 
     /**
      * method for the shuffling of the deck that use the <i>Durstenfeld-Knuth</i> algorithm
      */
     public void shuffle() {
+
         int j;
         Random random = new Random();
-        for (int i = this.getLastCard(); i > 0; i--) {
+        for (int i = this.cards.size(); i > 0; i--) {
             j = random.nextInt(i);
-            Card.swap(cards[i], cards[j]);
-
+            Card.swap(cards.get(i), cards.get(j));
         }
-    }
-
-    /**
-     * method for the decrease of the <code>cardsLeft</code> attribute
-     */
-    private void decreaseLastCard() {
-        this.lastCard--;
     }
 
     /**
      * method that return the first card of the deck that is the last card of the physical support
      *
 	 */
-    public void getFirstCard() {
-        Card result = this.cards[this.getLastCard()];
-        this.removeLastCard();
+    public Card getFirstCard() {
+
+        return this.cards.remove(this.cards.size()-1);
 	}
 
-    /**
-     * getter for the <code>lastCard</code> attribute
-     *
-     * @return the index of the last card in the array
-     */
-    public int getLastCard() {
-        return this.lastCard;
-    }
 
     /**
      * getter for the <code>cardNumber</code> attribute
@@ -75,31 +55,15 @@ public class Deck {
      * @return the number of the cards in the deck
      */
     public int getCardNumber() {
-        return this.lastCard + 1;
-    }
 
-    /**
-     * method for the last card elimination
-     */
-    private void removeLastCard() {
-        this.cards[this.getLastCard()] = null;
-        this.decreaseLastCard();
-
+        return this.cards.size();
     }
 
     /**
      * method for the elimination of the <code>DUE_COPPE</code> card from the deck for 1v1v1 matches
      */
     public void removeDue() {
-        int posDue;
-        for (int i = 0; i < this.getCardNumber(); i++) {
-            if (cards[i].equals(Card.DUE_COPPE)) {
-                posDue = i;
-                Card.swap(this.cards[this.lastCard], this.cards[posDue]);
-                this.removeLastCard();
-                return;
-            }
 
-        }
+        this.cards.remove(Card.DUE_COPPE);
     }
 }
