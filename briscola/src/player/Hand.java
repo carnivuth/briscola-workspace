@@ -2,7 +2,7 @@ package player;
 
 import exceptions.MaxCardNubmerExceededException;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import deck.Card;
 
@@ -12,22 +12,21 @@ import deck.Card;
  */
 public class Hand {
     /**
+     * constant value for the max dimension of the list
+     */
+    private static final int MAX_HAND_DIMENSION=3;
+
+    /**
      * the cards array
      */
-    private Card[] cardsInHand;
-    /**
-     * the logic dimension
-     */
-    private int numberCards;
+    private ArrayList<Card> cardsInHand;
 
     /**
      * main constructor for class <code>Hand</code>
-     *
-     * @param dimension the physical dimension of the <code>cardsInHand</code> array
      */
-    public Hand(int dimension) {
-        this.cardsInHand = new Card[dimension];
-        this.numberCards = 0;
+    public Hand() {
+
+        this.cardsInHand = new ArrayList<Card>();
     }
 
     /**
@@ -36,8 +35,8 @@ public class Hand {
      * @param hand the object that we wont the copy of
      */
     public Hand(Hand hand) {
-        this.numberCards = hand.getNumberCards();
-        this.cardsInHand = Arrays.copyOf(hand.cardsInHand, hand.getNumberCards());
+
+        this.cardsInHand=new ArrayList<Card>(hand.cardsInHand);
     }
 
     /**
@@ -46,7 +45,8 @@ public class Hand {
      * @return the number of cards in the hand
      */
     public int getNumberCards() {
-        return numberCards;
+
+        return this.cardsInHand.size();
     }
 
     /**
@@ -56,17 +56,10 @@ public class Hand {
      * @throws MaxCardNubmerExceededException if the hand is full
      */
     public void add(Card card) throws MaxCardNubmerExceededException {
-        if (this.getNumberCards() >= cardsInHand.length)
-            throw new MaxCardNubmerExceededException("hand array out of bounds too much cards in the hand");
-        this.cardsInHand[this.getNumberCards()] = card;
-        this.increaseNumberCards();
-    }
 
-    /**
-     * method for the increase of the <code>numberCards</code> value
-     */
-    private void increaseNumberCards() {
-        this.numberCards++;
+        if (this.getNumberCards() >= MAX_HAND_DIMENSION)
+            throw new MaxCardNubmerExceededException("hand array out of bounds too much cards in the hand");
+        this.cardsInHand.add(card);
     }
 
     /**
@@ -77,38 +70,9 @@ public class Hand {
      * @throws ArrayIndexOutOfBoundsException if the index is illegal for the array's dimension
      */
     public Card getCard(int index) throws ArrayIndexOutOfBoundsException {
-        if (index >= this.getNumberCards() || index < 0)
+
+        if (index<0||index>=this.cardsInHand.size())
             throw new ArrayIndexOutOfBoundsException("illegal index for the method getCard");
-        Card result = cardsInHand[index];
-        this.removeCard(index);
-        return result;
+        return cardsInHand.remove(index);
     }
-
-    /**
-     * method for the elimination of a card in the hand
-     *
-     * @param index the index of the card that have to be removed
-     * @throws ArrayIndexOutOfBoundsException if the index is illegal for the array's dimension
-     */
-    private void removeCard(int index) throws ArrayIndexOutOfBoundsException {
-        if (index >= this.getNumberCards() || index < 0)
-            throw new ArrayIndexOutOfBoundsException("illegal index for the method getCard");
-        cardsInHand[index] = null;
-        this.compact();
-    }
-
-    /**
-     * method for the elimination of empty spaces in the hand array
-     */
-    private void compact() {
-        for (int i = 0; i < this.getNumberCards(); i++) {
-            if (this.cardsInHand[i] == null) {
-                for (int j = i; j < this.getNumberCards() - 1; j++) {
-                    this.cardsInHand[j] = this.cardsInHand[j + 1];
-                }
-            }
-        }
-    }
-
-
 }
